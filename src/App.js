@@ -16,7 +16,7 @@ function App() {
 
 
   const addSeller = () => {
-    Axios.post("http://localhost:3001/addseller", {
+    Axios.post("https://beauty-products.herokuapp.com/addseller", {
       name: name,
       age: age,
     })
@@ -30,7 +30,7 @@ function App() {
   };
 
   const addProduct = () => {
-    Axios.post("http://localhost:3001/addproduct", {
+    Axios.post("https://beauty-products.herokuapp.com/addproduct", {
       name: prodName,
       price: price,
       sellerName: prodSeller,
@@ -53,7 +53,7 @@ function App() {
   const updateSeller = (id) => {
     const newAge = prompt("Enter new age: ");
     if (newAge) {
-      Axios.put('http://localhost:3001/update', { newAge: newAge, id: id}).then(() => {
+      Axios.put('https://beauty-products.herokuapp.com/update', { newAge: newAge, id: id}).then(() => {
         setListOfSellers(listOfSellers.map((val) => {
           return val._id == id ? {_id: id, name: val.name, age: newAge} : val;  
         }))
@@ -65,14 +65,14 @@ function App() {
     const newPrice = prompt("Enter new price: ");
     const newProdSeller = prompt("Enter new Seller: ");
     if (newProdSeller && newPrice) {
-      Axios.put('http://localhost:3001/updateproduct', { newSellerName: newProdSeller, newPrice: newPrice, id: id}).then(() => {
+      Axios.put('https://beauty-products.herokuapp.com/updateproduct', { newSellerName: newProdSeller, newPrice: newPrice, id: id}).then(() => {
         displayProduct(selectSeller);
       });
     }
   }
 
   const deleteSeller = (id) => {
-    Axios.delete(`http://localhost:3001/delete/${id}`).then(() => {
+    Axios.delete(`https://beauty-products.herokuapp.com/delete/${id}`).then(() => {
       setListOfSellers(listOfSellers.filter((val) => {
         return val._id != id;
       }));
@@ -81,7 +81,7 @@ function App() {
   }
 
   const deleteProduct = (id) => {
-    Axios.delete(`http://localhost:3001/deleteproduct/${id}`).then(() => {
+    Axios.delete(`https://beauty-products.herokuapp.com/deleteproduct/${id}`).then(() => {
       setListOfProducts(listOfProducts.filter((val) => {
         return val._id != id;
       }))
@@ -91,7 +91,7 @@ function App() {
   const displayProduct = (sellerName) => {
     // use readproduct
     setselectSeller(sellerName);
-    Axios.get(`http://localhost:3001/displayproduct/${sellerName}`)
+    Axios.get(`https://beauty-products.herokuapp.com/displayproduct/${sellerName}`)
       .then((response) => {
         setListOfProducts(response.data);
         
@@ -102,7 +102,7 @@ function App() {
   }
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/read")
+    Axios.get("https://beauty-products.herokuapp.com/read")
       .then((response) => {
         // console.log(response);
         setListOfSellers(response.data);
